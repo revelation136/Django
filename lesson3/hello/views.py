@@ -6,9 +6,12 @@ from django.shortcuts import render
 
 
 def index(request):
-    return HttpResponse('Hello, world!')
+    # adding html file to view, this is templating
+    return render(request, "hello/index.html")
 
 
 # adding dynamic response
 def greet(request, name):
-    return HttpResponse(f"Hello, {name.capitalize()}!")
+    return render(request, "hello/greet.html",
+                  {"name": name.capitalize()})
+
