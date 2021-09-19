@@ -1,10 +1,21 @@
+<!--Loading the static CSS style sheet-->
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Is it New Year's day?</title>
+<!--    Django syntax on adding stylesheet-->
+    <link rel="stylesheet" href="{% static 'newyear/styles.css' %}">
 </head>
 <body>
-$END$
+<!--curly braces are indicators that this block is if statement, this is the language of django doing so-->
+    {% if newyear %}
+        <h1>YES</h1>
+    {% else %}
+        <h1>NO</h1>
+<!--always end with endif syntax to end the if statement-->
+    {% endif %}
 </body>
 </html>
