@@ -8,5 +8,9 @@ tasks = ["foo", "bar", "baz"]
 
 def index(request):
     return render(request, "tasks/index.html", {
-        "tasks": tasks
+        "tasks_html": tasks
     })
+
+
+def add(request):
+    return render(request, "tasks/add.html")
