@@ -3,15 +3,17 @@ from django import forms
 from django.urls import reverse
 from django.http import HttpResponseRedirect
 
-tasks = ["foo", "bar", "baz"]
-
 
 # Create your views here.
 
 
 def index(request):
+    #  Check if there is already exists a "tasks" key in our session
+    if "tasks" not in request.session:
+        # if not, create a new list
+        request.session["tasks"] = []
     return render(request, "tasks/index.html", {
-        "tasks_html": tasks
+        "tasks_html": request.session["tasks"]
     })
 
 
@@ -23,7 +25,6 @@ class NewTaskForm(forms.Form):
 
 
 def add(request):
-
     # check if method is Post
     if request.method == "POST":
 
@@ -41,7 +42,7 @@ def add(request):
             task = form.cleaned_data["task"]
 
             # add the new task to our list of tasks
-            tasks.append(task)
+            request.session["tasks"] += [task]
 
             # Redirect user to list of tasks
             return HttpResponseRedirect(reverse("tasks:index"))
@@ -56,6 +57,3 @@ def add(request):
     return render(request, "tasks/add.html", {
         "form": NewTaskForm()
     })
-
-
-
